@@ -1,6 +1,2 @@
 
-print("Hello")
-print("ABC")
-print("CDE")
-print("LOL")
-print("LOL2")
+print("Reactor Control")
