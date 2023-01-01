@@ -36,7 +36,6 @@ function printRectorInfomation(ri)
     print("   Fuel Conversion:                 ", ri.fuelConversion)
     print("   Fuel Conversion Rate             ", ri.fuelConversionRate)
     print("   Fuel Conversion Max:             ", ri.maxFuelConversion)
-    print("                                    ")
 end
 
 local signalLowFlow = flux.getSignalLowFlow()
@@ -48,43 +47,43 @@ while true do
     reactorInfo = reactor.getReactorInfo()
     printRectorInfomation(reactorInfo)
  
-   print("--- Controlling Energy Output  --------------------------------------------------------------------------------") 
+   print("\n--- Controlling Energy Output  --------------------------------------------------------------------------------") 
    energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
     print ("Energy in Percent: ", energyInPercent)
     temperature = reactorInfo.temperature
     print ("Temperature: ", temperature)
 
     if (energyInPercent < energyControlValue) then
-        print("Reactor instablity detected!")
-        print(" --> Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
+        print("! Reactor instablity detected!")
+        print("--> Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
         signalLowFlow = signalLowFlow - signalLowFlowDecrease
     else
         if (temperature < maxTemperatureControlValue) then
-            print (" --> Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
+            print ("--> Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
             signalLowFlow = signalLowFlow + signalLowFlowIncrease
         else
-            print("Temperatur too high. Can not increase Signal Low Flow.")
+            print("! Temperatur too high. Can not increase Signal Low Flow.")
         end
     end
     flux.setSignalLowFlow(signalLowFlow)
-    print("")
 
-    print("--- Controlling Field Strength  ------------------------------------------------------------------------------") 
+    print("\n--- Controlling Field Strength  ------------------------------------------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: ", fieldStrengthInPercent)
 
     if (fieldStrengthInPercent < fieldStrengthControlValue) then
-        print(" --> Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
+        print("--> Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
         signalLowFlowShield = signalLowFlowShield + signalLowFlowIncrease
     else 
-        print(" --> Decreasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowDecrease)
+        print("--> Decreasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowDecrease)
         signalLowFlowShield = signalLowFlowShield - signalLowFlowDecrease
     end
     flux2.setSignalLowFlow(signalLowFlowShield)
 
-    print("--- Summary  ------------------------------------------------------------------------------") 
+    print("\n--- Summary  -------------------------------------------------------------------------------------------------") 
     print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
-
+    print("\n--------------------------------------------------------------------------------------------------------------") 
+ 
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
     if (e == "key_down") then return end
