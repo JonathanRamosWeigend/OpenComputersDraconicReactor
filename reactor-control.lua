@@ -83,7 +83,7 @@ while true do
     flux2.setSignalLowFlow(signalLowFlowShield)
 
     print("--- Summary  ------------------------------------------------------------------------------") 
-    print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100
+    print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
 
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
