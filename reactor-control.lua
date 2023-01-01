@@ -21,7 +21,7 @@ local flux2 = component.proxy("17fed63d-c209-4233-9bee-98bcbbff7a41")
 
 
 function printRectorInfomation(ri)
-    print("--- Reactor Information --------------------------------------------------------------------------------------") 
+    print("--- Reactor Information -------------------------------------------------------") 
     print("  Status:                          ", ri.status)
     print("  Temperature:                     ", ri.temperature)
     print("  --- Field ---") 
@@ -47,7 +47,7 @@ while true do
     reactorInfo = reactor.getReactorInfo()
     printRectorInfomation(reactorInfo)
  
-   print("\n--- Controlling Energy Output  --------------------------------------------------------------------------------") 
+   print("--- Controlling Energy Output  ------------------------------------------------") 
    energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
     print ("Energy in Percent: ", energyInPercent)
     temperature = reactorInfo.temperature
@@ -67,7 +67,7 @@ while true do
     end
     flux.setSignalLowFlow(signalLowFlow)
 
-    print("\n--- Controlling Field Strength  ------------------------------------------------------------------------------") 
+    print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: ", fieldStrengthInPercent)
 
@@ -80,9 +80,9 @@ while true do
     end
     flux2.setSignalLowFlow(signalLowFlowShield)
 
-    print("\n--- Summary  -------------------------------------------------------------------------------------------------") 
+    print("--- Summary  ------------------------------------------------------------------") 
     print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
-    print("\n--------------------------------------------------------------------------------------------------------------") 
+    print("-------------------------------------------------------------------------------") 
  
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
