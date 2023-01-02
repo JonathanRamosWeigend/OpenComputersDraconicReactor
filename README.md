@@ -11,6 +11,7 @@ The second flux controls the energy input. The program controls the energy input
 The control frequency is one cycle per second. By clicking at the sceen of your computer, you can speed up the progress, but make sure your reactor does not get instable!!! :-)
 The program will initiate a shutdown of the reactor if the fuel depletion value reaches 90%.
 The program exits on any key.
+It does not automate refulling and the warming up process. The constants in the code assume that you have at least 4 blocks of awakened draconium as fuel. But you can ajust every constant in the code as neccessary. 
 
 Important:
 The program should run without any modification. BUT:
