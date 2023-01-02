@@ -11,7 +11,7 @@ local signalLowFlowIncrease = 100000
 local signalLowFlowDecrease = 50000
 local energyControlValue = 50
 local fieldStrengthControlValue = 50
-local maxTemperatureControlValue = 5000
+local maxTemperatureControlValue = 6000
 local loopFrequencyInSeconds = 1
 -- fluxgate controls energy output of reactor
 local flux = component.proxy("85bc7a1c-acbe-4210-b129-451c6b2fa655")
@@ -53,17 +53,14 @@ while true do
     temperature = reactorInfo.temperature
     print ("Temperature: ", temperature)
 
-    if (energyInPercent < energyControlValue) then
+    if (energyInPercent < energyControlValue || temperature > maxTemperatureControlValue) then
         print("! Reactor instablity detected!")
         print("--> Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
         signalLowFlow = signalLowFlow - signalLowFlowDecrease
     else
-        if (temperature < maxTemperatureControlValue) then
-            print ("--> Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
-            signalLowFlow = signalLowFlow + signalLowFlowIncrease
-        else
-            print("! Temperatur too high. Can not increase Signal Low Flow.")
-        end
+        print("OK Reactor stable!")
+        print ("--> Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
+        signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
 
