@@ -37,3 +37,5 @@ Do not blame us !
 
 Its the end of the world, the end of the word ...  (Blackfield)
 
+# About me ...
+https://www.youtube.com/@nuclearjoni9212
