@@ -8,7 +8,7 @@ local reactor = component.draconic_reactor
 
 -- EDIT THIS
 local signalLowFlowIncrease = 100000
-local signalLowFlowDecrease = 50000
+local signalLowFlowDecrease = 100000
 local energyControlValue = 50
 local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
@@ -53,8 +53,12 @@ while true do
     temperature = reactorInfo.temperature
  
     if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
-        print("[-] Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
-        signalLowFlow = signalLowFlow - signalLowFlowDecrease
+        if (signalLowFlow > 0) then
+            print("[-] Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
+            signalLowFlow = signalLowFlow - signalLowFlowDecrease
+        else
+            print("[!] Can not further decrease ", signalLowFlow)
+        end
     else
         print ("[+] Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
