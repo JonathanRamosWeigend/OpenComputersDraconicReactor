@@ -44,14 +44,23 @@ local signalLowFlowShield = flux2.getSignalLowFlow()
 -- Main Loop
 while true do
     os.execute("clear")
+
     reactorInfo = reactor.getReactorInfo()
     printRectorInfomation(reactorInfo)
- 
+
+    -- do not conrol any value during shutdown
+    if (reactorInfo.status != "running") then goto exit end
+
+    -- shutdown when fuelConversion > 90%
+    if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > 90) then
+       reactor.shutdown()
+    end    
+   
     print("--- Controlling Energy Output  ------------------------------------------------") 
     energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
     print ("Energy in Percent: ", energyInPercent)
     temperature = reactorInfo.temperature
- 
+
     if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
         if (signalLowFlow > 0) then
             print("[-] Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
@@ -64,11 +73,9 @@ while true do
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
-
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: ", fieldStrengthInPercent)
-
     if (fieldStrengthInPercent < fieldStrengthControlValue) then
         print("[+] Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
         signalLowFlowShield = signalLowFlowShield + signalLowFlowIncrease
@@ -77,11 +84,12 @@ while true do
         signalLowFlowShield = signalLowFlowShield - signalLowFlowDecrease
     end
     flux2.setSignalLowFlow(signalLowFlowShield)
-
+    
     print("--- Summary  ------------------------------------------------------------------") 
     print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
     print("Efficiency in RF: ", signalLowFlow - signalLowFlowShield);
  
+    ::exit::
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
     if (e == "key_down") then return end
