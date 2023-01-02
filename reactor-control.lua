@@ -56,7 +56,6 @@ while true do
         print("[-] Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
         signalLowFlow = signalLowFlow - signalLowFlowDecrease
     else
-        print("OK Reactor stable!")
         print ("[+] Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
