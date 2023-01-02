@@ -13,12 +13,21 @@ local energyControlValue = 50
 local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
 local loopFrequencyInSeconds = 1
--- fluxgate controls energy output of reactor
-local flux = component.proxy("85bc7a1c-acbe-4210-b129-451c6b2fa655")
--- fluxgate controls energy input to control the field
-local flux2 = component.proxy("17fed63d-c209-4233-9bee-98bcbbff7a41")
--- END OF EDIT
 
+-- Set flux gates
+gates = {}
+for address, name in pairs(component.list("flux_gate")) do
+    gate = component.get(address)
+    table.insert(gates, gate)
+end
+
+local flux = gates[1]
+local flux2 = gates[2]
+
+print(flux)
+print(flux2)
+
+return
 
 function printRectorInfomation(ri)
     print("--- Reactor Information -------------------------------------------------------") 
@@ -73,7 +82,7 @@ while true do
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
-    
+
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: ", fieldStrengthInPercent)
