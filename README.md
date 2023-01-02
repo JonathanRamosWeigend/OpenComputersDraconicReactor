@@ -28,7 +28,7 @@ It is not possible to label multiple components with the same name in Open Compu
 ## Lua Developing with Visual Studio Code
 ![reactor-control lua - DraconicReactor - Visual Studio Code 02 01 2023 18_05_03](https://user-images.githubusercontent.com/25133150/210278088-8a23553f-f780-4037-862f-3ec755f44672.png)
 
-#If something goes wrong ;-)
+# If something goes wrong ;-)
 Do not blame us !
 ![2023-01-02_21 07 40](https://user-images.githubusercontent.com/25133150/210284077-10829990-8821-4348-bcb0-185ece212f77.png)
 ![2023-01-02_21 09 06](https://user-images.githubusercontent.com/25133150/210284063-860f5def-487f-4194-ab7c-a7a142fa90b6.png)
