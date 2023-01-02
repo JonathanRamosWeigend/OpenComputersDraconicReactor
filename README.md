@@ -12,6 +12,10 @@ The control frequency is one cycle per second. By clicking at the sceen of your 
 The program will initiate a shutdown of the reactor if the fuel depletion value reaches 90%.
 The program exits on any key.
 
+Important:
+The program should run without any modification. BUT:
+It is not possible to label multiple components with the same name in Open Computers 1.7. Make sure to control the access to flux-gate 1 and flux-gate 2. The program lists all components. Maybe in your world the two flux gates have to be changed because the order of the two addresses could have changed. !
+
 ## Draconic Reator with Open Computers
 ![2023-01-02_19 03 50](https://user-images.githubusercontent.com/25133150/210278073-6dd45b48-a888-4dc4-9a76-66cf0ed50377.png)
 
