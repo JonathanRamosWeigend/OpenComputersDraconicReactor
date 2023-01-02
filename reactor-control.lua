@@ -47,19 +47,17 @@ while true do
     reactorInfo = reactor.getReactorInfo()
     printRectorInfomation(reactorInfo)
  
-   print("--- Controlling Energy Output  ------------------------------------------------") 
-   energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
+    print("--- Controlling Energy Output  ------------------------------------------------") 
+    energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
     print ("Energy in Percent: ", energyInPercent)
     temperature = reactorInfo.temperature
-    print ("Temperature: ", temperature)
-
+ 
     if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
-        print("! Reactor instablity detected!")
-        print("--> Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
+        print("[-] Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
         signalLowFlow = signalLowFlow - signalLowFlowDecrease
     else
         print("OK Reactor stable!")
-        print ("--> Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
+        print ("[+] Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
@@ -69,10 +67,10 @@ while true do
     print("Field Strength in Percent: ", fieldStrengthInPercent)
 
     if (fieldStrengthInPercent < fieldStrengthControlValue) then
-        print("--> Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
+        print("[+] Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
         signalLowFlowShield = signalLowFlowShield + signalLowFlowIncrease
     else 
-        print("--> Decreasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowDecrease)
+        print("[-] Decreasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowDecrease)
         signalLowFlowShield = signalLowFlowShield - signalLowFlowDecrease
     end
     flux2.setSignalLowFlow(signalLowFlowShield)
