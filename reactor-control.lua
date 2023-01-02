@@ -73,6 +73,7 @@ while true do
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
+    
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: ", fieldStrengthInPercent)
