@@ -14,18 +14,14 @@ local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
 local loopFrequencyInSeconds = 1
 
--- Set flux gates
+-- Set flux gates 
 gates = {}
 for address, name in pairs(component.list("flux_gate")) do
-    gate = component.get(address)
-    table.insert(gates, gate)
+    gate = component.proxy(address)
+    table.insert(gates, 1, gate) 
 end
-
 local flux = gates[1]
 local flux2 = gates[2]
-
-print(flux)
-print(flux2)
 
 return
 
@@ -67,7 +63,7 @@ while true do
    
     print("--- Controlling Energy Output  ------------------------------------------------") 
     energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
-    print ("Energy in Percent: ", energyInPercent)
+    print ("Energy in Percent: " .. energyInPercent .. "(" .. string.sub(signalLowFlow.address, 1,8) .. ")")
     temperature = reactorInfo.temperature
 
     if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
@@ -78,14 +74,14 @@ while true do
             print("[!] Can not further decrease ", signalLowFlow)
         end
     else
-        print ("[+] Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
+        print ("[+] Increasing Signal Low Flow " signalLowFlow, " with ", signalLowFlowIncrease)
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
 
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
-    print("Field Strength in Percent: ", fieldStrengthInPercent)
+    print("Field Strength in Percent: " .. fieldStrengthInPercent .. "(" .. string.sub(signalLowFlow.address, 1,8) .. ")")
     if (fieldStrengthInPercent < fieldStrengthControlValue) then
         print("[+] Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
         signalLowFlowShield = signalLowFlowShield + signalLowFlowIncrease
