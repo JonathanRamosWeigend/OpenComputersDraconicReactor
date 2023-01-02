@@ -6,13 +6,15 @@ local component = require("component")
 local event = require("event")
 local reactor = component.draconic_reactor
 
--- EDIT THIS
+-- EDIT THIS --
 local signalLowFlowIncrease = 100000
 local signalLowFlowDecrease = 100000
 local energyControlValue = 50
 local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
+local fuelDepletionForShutdown = 90
 local loopFrequencyInSeconds = 1
+---------------
 
 -- Set flux gates - Hack for multiple flux_gate components in OpenComputer 1.7
 gates = {}
@@ -23,7 +25,6 @@ end
 -- Assuming gate 1 == Energy Output, gate 2 = Energy Field Control
 local flux = gates[1]
 local flux2 = gates[2]
-
 
 function printRectorInfomation(ri)
     print("--- Reactor Information -------------------------------------------------------") 
@@ -57,7 +58,7 @@ while true do
     if (not (reactorInfo.status == "running")) then goto exit end
 
     -- shutdown when fuelConversion > 90%
-    if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > 90) then
+    if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > fuelDepletionForShutdown) then
        reactor.stopReactor()
     end    
    
