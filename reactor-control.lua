@@ -53,7 +53,7 @@ while true do
 
     -- shutdown when fuelConversion > 90%
     if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > 90) then
-       reactor.shutdown()
+       reactor.activeReactor(false)
     end    
    
     print("--- Controlling Energy Output  ------------------------------------------------") 
