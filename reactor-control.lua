@@ -14,6 +14,7 @@ local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
 local fuelDepletionForShutdown = 90
 local loopFrequencyInSeconds = 1
+local signalLowFlowShieldStartValue = 10000000
 ---------------
 
 -- Set flux gates - Hack for multiple flux_gate components in OpenComputer 1.7
@@ -60,6 +61,8 @@ while true do
     -- shutdown when fuelConversion > 90%
     if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > fuelDepletionForShutdown) then
        reactor.stopReactor()
+       signalLowFlow = 0 -- output = 0
+       signalLowFlowShield = signalLowFlowShieldStartValue 
     end    
    
     print("--- Controlling Energy Output  ------------------------------------------------") 
