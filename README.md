@@ -2,7 +2,7 @@
 Control Program for Open Computers 1.7 controlling the Draconic Reactor in Minecraft 1.12.2
 
 The program is written with Lua. It runs on any OS on Open Computers inside Minecraft. To download the program make sure your computer has
-integrated the Internet Card inside your computer. Use the following command for download:
+integrated the Internet Card inside your computer. Use the following command for download inside your Minecraft Computer:
 
 <code>wget https://raw.githubusercontent.com/JonathanRamosWeigend/OpenComputersDraconicReactor/main/reactor-control.lua</code>
 
