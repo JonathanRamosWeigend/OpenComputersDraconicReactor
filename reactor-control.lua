@@ -79,8 +79,6 @@ while true do
     end
     flux.setSignalLowFlow(signalLowFlow)
 
-    ::exit::
-
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
     print("Field Strength in Percent: " .. fieldStrengthInPercent .. "   (" .. string.sub(flux2.address, 1,8) .. "...)")
@@ -97,6 +95,7 @@ while true do
     print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
     print("Efficiency in RF: ", signalLowFlow - signalLowFlowShield);
  
+    ::exit::
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
     if (e == "key_down") then return end
