@@ -49,7 +49,7 @@ while true do
     printRectorInfomation(reactorInfo)
 
     -- do not conrol any value during shutdown
-    if (reactorInfo.status != "running") then goto exit end
+    if (reactorInfo.status not "running") then goto exit end
 
     -- shutdown when fuelConversion > 90%
     if (((reactorInfo.fuelConversion / reactorInfo.maxFuelConversion) * 100) > 90) then
