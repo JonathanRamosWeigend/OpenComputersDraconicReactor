@@ -74,7 +74,7 @@ while true do
             print("[!] Can not further decrease ", signalLowFlow)
         end
     else
-        print ("[+] Increasing Signal Low Flow " signalLowFlow, " with ", signalLowFlowIncrease)
+        print ("[+] Increasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowIncrease)
         signalLowFlow = signalLowFlow + signalLowFlowIncrease
     end
     flux.setSignalLowFlow(signalLowFlow)
