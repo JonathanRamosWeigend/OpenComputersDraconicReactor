@@ -53,7 +53,7 @@ while true do
     temperature = reactorInfo.temperature
     print ("Temperature: ", temperature)
 
-    if (energyInPercent < energyControlValue || temperature > maxTemperatureControlValue) then
+    if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
         print("! Reactor instablity detected!")
         print("--> Decreasing Signal Low Flow ", signalLowFlow, " with ", signalLowFlowDecrease)
         signalLowFlow = signalLowFlow - signalLowFlowDecrease
