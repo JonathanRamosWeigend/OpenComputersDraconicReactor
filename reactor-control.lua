@@ -14,16 +14,16 @@ local fieldStrengthControlValue = 50
 local maxTemperatureControlValue = 6000
 local loopFrequencyInSeconds = 1
 
--- Set flux gates 
+-- Set flux gates - Hack for multiple flux_gate components in OpenComputer 1.7
 gates = {}
 for address, name in pairs(component.list("flux_gate")) do
     gate = component.proxy(address)
     table.insert(gates, 1, gate) 
 end
+-- Assuming gate 1 == Energy Output, gate 2 = Energy Field Control
 local flux = gates[1]
 local flux2 = gates[2]
 
-return
 
 function printRectorInfomation(ri)
     print("--- Reactor Information -------------------------------------------------------") 
@@ -63,7 +63,7 @@ while true do
    
     print("--- Controlling Energy Output  ------------------------------------------------") 
     energyInPercent = (reactorInfo.energySaturation / reactorInfo.maxEnergySaturation) * 100
-    print ("Energy in Percent: " .. energyInPercent .. "(" .. string.sub(signalLowFlow.address, 1,8) .. ")")
+    print ("Energy in Percent: " .. energyInPercent .. "   (" .. string.sub(flux.address, 1,8) .. "...)")
     temperature = reactorInfo.temperature
 
     if (energyInPercent < energyControlValue or temperature > maxTemperatureControlValue) then
@@ -81,7 +81,7 @@ while true do
 
     print("--- Controlling Field Strength  -----------------------------------------------") 
     fieldStrengthInPercent = (reactorInfo.fieldStrength / reactorInfo.maxFieldStrength) * 100
-    print("Field Strength in Percent: " .. fieldStrengthInPercent .. "(" .. string.sub(signalLowFlow.address, 1,8) .. ")")
+    print("Field Strength in Percent: " .. fieldStrengthInPercent .. "   (" .. string.sub(flux2.address, 1,8) .. "...)")
     if (fieldStrengthInPercent < fieldStrengthControlValue) then
         print("[+] Increasing Shield Signal Low Flow ", signalLowFlowShield, " with ", signalLowFlowIncrease)
         signalLowFlowShield = signalLowFlowShield + signalLowFlowIncrease
