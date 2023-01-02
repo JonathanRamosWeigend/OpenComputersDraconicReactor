@@ -76,6 +76,7 @@ while true do
 
     print("--- Summary  ------------------------------------------------------------------") 
     print("Efficiency in %: ", (signalLowFlow / signalLowFlowShield) * 100)
+    print("Efficiency in RF: ", signalLowFlow - signalLowFlowShield);
  
     -- Wait until timeout or wait on any key and exit
     e = event.pull(loopFrequencyInSeconds)
