@@ -5,6 +5,7 @@
 local component = require("component")
 local event = require("event")
 local reactor = component.draconic_reactor
+if (reactor == nil) then print("Draconic Reactor not found in game.") return end
 
 -- EDIT THIS --
 local signalLowFlowIncrease = 100000
@@ -21,11 +22,12 @@ local signalLowFlowShieldStartValue = 10000000
 gates = {}
 for address, name in pairs(component.list("flux_gate")) do
     gate = component.proxy(address)
-    table.insert(gates, 1, gate) 
+    table.insert(gates, gate) 
 end
 -- Assuming gate 1 == Energy Output, gate 2 = Energy Field Control
 local flux = gates[1]
 local flux2 = gates[2]
+
 
 function printRectorInfomation(ri)
     print("--- Reactor Information -------------------------------------------------------") 
